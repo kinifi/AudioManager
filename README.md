@@ -3,7 +3,7 @@ AudioManager
 
 Description: 
 
-An Audio Manager for Unity. I found myself being annoyed by how audio works in Unity so I created a single none destructable game object that hows an array of names and an array of audio files. 
+An Audio Manager for Unity. I found myself being annoyed by how audio works in Unity so I created a single non-destructable game object that has an array of names and an array of audio files. 
 
 How it works:
 
