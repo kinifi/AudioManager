@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Audiomanager by kinifi</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Audiomanager</h1>
+        <h2>An Audio Manager for Unity</h2>
+        <a href="https://github.com/kinifi/AudioManager" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="audiomanager" class="anchor" href="#audiomanager"><span class="octicon octicon-link"></span></a>AudioManager</h1>
+
+<p>Description: </p>
+
+<p>An Audio Manager for Unity. I found myself being annoyed by how audio works in Unity so I created a single none destructable game object that hows an array of names and an array of audio files. </p>
+
+<p>How it works:</p>
+
+<ol>
+<li>Go to Window/Audio Manager</li>
+<li>An Audio Manager window will pop up that will instruct you to go to the first scene of your project</li>
+<li>Click the Setup Audio Manager button</li>
+<li>An empty gameObject with a script called audioController.cs is created. </li>
+<li>Look at the AudioManager. There is an array called "audioFileNames". Open that and list the audio file names. Remember you will be calling these from code so keep them simple</li>
+<li>Open the array called "audioFiles" change the array size to be the EXACT same size as your "audioFileNames" array. </li>
+<li>Now add the audio files in the exact same location as its name. Example: I have an audioFileName called "Jump" thats in the 1st position in the audioFileNames array. I now add the "Jump" sound file to the 1st position of the audioFiles array. </li>
+<li>Continue to do this for all audio files. Its an annoying process to setup. </li>
+</ol><p>WARNING: Do not just drag over all your audio files on the array unless you plan on adding the audioFileNames after. Unity will not organize them in any manner that makes sense. </p>
+
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation:</h2>
+
+<p>Audio Layers: There are three audio layers in the audioManager.
+1. oneshot - an audio layer to throw short and quick audio files such as a jump sound, or bullet sound. 
+2. background - a layer that can be used as oneshot but should be used to loop a longer background noise such as looped music. 
+3. foreground - a layer that can be used as a one shot but should be used to add addition depth to your audio. Example: If the background layer is playing a looping audio file of people talking in a coffee shot. The foreground can be set to play an audio file that plays "Order up!". ALso a looping audio file on top of the background layer will work also such as wind. </p>
+
+<h3>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example:</h3>
+
+<pre><code>//example on how to use
+//plays an audio clip that is listed in the array of File Names called fileName
+//sets the audio clip to NOT loop
+//sets the volume of the clip to max. 1.0f
+//sets it to the oneshot layer so the background and foreground music layers are left alone
+audioController.instance.playAudio ("fileName", false, 1.0f, "oneshot");
+</code></pre>
+
+<h3>
+<a name="method-list" class="anchor" href="#method-list"><span class="octicon octicon-link"></span></a>Method List:</h3>
+
+<p>setVolumeToLayer</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Sets the volume to a certain layer.
+/// &lt;/summary&gt;
+/// &lt;param name="volumeAmount"&gt;Volume amount.&lt;/param&gt;
+/// &lt;param name="layerName"&gt;Layer name: oneshot, foreground, background&lt;/param&gt;
+void setVolumeToLayer(float volumeAmount, string layerName)
+</code></pre>
+
+<p>unpauseAudioSource</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Unpauses the audio source.
+/// &lt;/summary&gt;
+/// &lt;param name="layerName"&gt;Layer name to unpause: oneshot, background, foreground&lt;/param&gt;
+void unpauseAudioSource(string layerName)
+</code></pre>
+
+<p>pauseAllAudio</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Pauses all audio.
+/// &lt;/summary&gt;
+void pauseAllAudio()
+</code></pre>
+
+<p>muteAllLayers</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Mutes all layers.
+/// &lt;/summary&gt;
+void muteAllLayers()
+</code></pre>
+
+<p>unmuteAllLayers</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Unmutes all layers.
+/// &lt;/summary&gt;
+void unmuteAllLayers()
+</code></pre>
+
+<p>selectLayerUnmute</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Pass a layer name to be unmuted
+/// &lt;/summary&gt;
+/// &lt;param name="layerName"&gt;Layer name to unmute: oneshot, foreground, background&lt;/param&gt;
+void selectLayerUnmute(string layerName)
+</code></pre>
+
+<p>playAudio</p>
+
+<pre><code>//iterate through the audio file names and see if any exist with the name being passed
+//if true play that audio
+/// &lt;summary&gt;
+/// Play the audio clip name
+/// &lt;/summary&gt;
+/// &lt;param name="Name"&gt;name of the audio clip&lt;/param&gt;
+/// &lt;param name="shouldLoop"&gt;If set to &lt;c&gt;true&lt;/c&gt; should loop.&lt;/param&gt;
+/// &lt;param name="audioLevel"&gt;Audio level. 1.0 = max&lt;/param&gt;
+/// &lt;param name="layerName"&gt;Layer name to play audio clip on: oneshot, foreground, background&lt;/param&gt;
+void playAudio(string Name, bool shouldLoop, float audioLevel, string layerName)
+</code></pre>
+
+<p>getAudioNames</p>
+
+<pre><code>/// &lt;summary&gt;
+/// Gets the Audio File Names
+/// &lt;/summary&gt;
+/// &lt;returns&gt;The audio names in Array&lt;/returns&gt;
+string[] getAudioNames()
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/kinifi/AudioManager/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/kinifi/AudioManager/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/kinifi/AudioManager"></a> is maintained by <a href="https://github.com/kinifi">kinifi</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
