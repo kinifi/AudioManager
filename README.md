@@ -24,7 +24,9 @@ WARNING: Do not just drag over all your audio files on the array unless you plan
 
 Audio Layers: There are three audio layers in the audioManager.
 1. oneshot - an audio layer to throw short and quick audio files such as a jump sound, or bullet sound. 
+
 2. background - a layer that can be used as oneshot but should be used to loop a longer background noise such as looped music. 
+
 3. foreground - a layer that can be used as a one shot but should be used to add addition depth to your audio. Example: If the background layer is playing a looping audio file of people talking in a coffee shot. The foreground can be set to play an audio file that plays "Order up!". ALso a looping audio file on top of the background layer will work also such as wind. 
 
 ###Example: 
