@@ -235,7 +235,22 @@ public class audioController : MonoBehaviour {
 		return audioFileNames;
 	}
 
-
+	/// <summary>
+	/// Checks to see if the audio sources have been set yet. 
+	/// </summary>
+	/// <returns>True is setup; False if null</returns>
+	public bool isAudioControllerSetup() {
+		if(oneshotAudio != null && foregroundAudio != null && backgroundAudio != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
 	private void setupAudioController() {
 
 		addAudioSources();
